@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+  <Appenders>
+    <Console name="CONSOLE" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyyyMMdd-HHmmss.SSS}|%X{username}|%-5p|%t| %-100m (%c{1})%n"/>
+    </Console>
+
+    <!-- <appender name="file" class="org.apache.log4j.RollingFileAppender">
+         <param name="append" value="false" />
+         <param name="maxFileSize" value="10MB" />
+         <param name="maxBackupIndex" value="10" />
+         <param name="File" value="D:\\Personal\\Cinegore\\SeleniumDay1\\logs\\logger.log" />
+         <layout class="org.apache.log4j.PatternLayout">
+             <param name="ConversionPattern"
+                    value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+         </layout>
+     </appender>-->
+
+    <RollingFile name="RollingFile">
+      <FileName>logs/mylog.log</FileName>
+      <FilePattern>logs/time-based-logs/%d{yyyy-MM-dd-hh-mm}.log.zip</FilePattern>
+      <PatternLayout>
+        <Pattern>%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="2" modulate="true" />
+      </Policies>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="1000 KB" />
+      </Policies>
+      <DefaultRolloverStrategy max="5" />
+    </RollingFile>
+
+  </Appenders>
+
+
+
+  <Loggers>
+
+    <Logger level="ALL" additivity="true" name="com.mit.test">
+      <AppenderRef ref="RollingFile" />
+      <AppenderRef ref="Console" />
+    </Logger>
+
+    <Root level="ALL" >
+      <AppenderRef ref="file"/>
+      <AppenderRef ref="RollingFile"/>
+    </Root>
+  </Loggers>
+</Configuration>
